@@ -1,13 +1,15 @@
 import React from "react";
 import NavbarMenu from "@/components/Navbar";
-import { StickyScrollRevealDemo } from "@/components/Scroll";
+//import { StickyScrollRevealDemo } from "@/components/Scroll";
+import { GlobeDemo } from "@/components/GlobeDemo";
+import { AppleCardsCarouselDemo } from "@/components/AppleCardsCarouselDemo";
 
 const Home = () => {
   return (
     <>
       <NavbarMenu />
-      <StickyScrollRevealDemo />
-      {/* You can add more content related to the Home page here */}
+      <GlobeDemo />
+      <AppleCardsCarouselDemo />
     </>
   );
 };
