@@ -2,6 +2,7 @@ import React from "react";
 import NavbarMenu from "@/components/Navbar";
 import { HeroScrollDemo } from "@/components/HeroScrollDemo";
 import { TimelineDemo } from "@/components/TimelineDemo";
+import { AnimatedModalDemo } from "@/components/AnimatedModalDemo";
 
 const AboutUs = () => {
   return (
@@ -9,7 +10,7 @@ const AboutUs = () => {
       <NavbarMenu />
       <HeroScrollDemo />
       <TimelineDemo />
-      {/* You can add more content related to the Home page here */}
+      <AnimatedModalDemo />
     </>
   );
 };
