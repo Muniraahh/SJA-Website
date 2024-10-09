@@ -20,7 +20,7 @@ export const CarouselContext = createContext({
   currentIndex: 0,
 });
 
-export const Carousel = ({ items, initialScroll = 0 }) => {
+export  const Carousel = ({ items, initialScroll = 0 }) => { //export thaich func
   const carouselRef = React.useRef(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
