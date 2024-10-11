@@ -8,11 +8,19 @@ const AboutUs = () => {
   return (
     <>
       <NavbarMenu />
-      <HeroScrollDemo />
-      <TimelineDemo />
-      <AnimatedModalDemo />
+
+      <div className="relative mt-[-150px] z-10">
+        <HeroScrollDemo />
+      </div>
+
+      <div className="relative mt-[-200px] z-20">
+        <TimelineDemo />
+      </div>
+      
+      <div className="relative mt-[-300px] z-20">
+        <AnimatedModalDemo />
+      </div>
     </>
   );
 };
-
 export default AboutUs;

@@ -1,14 +1,16 @@
 import React from "react";
 import NavbarMenu from "@/components/Navbar";
-import { BackgroundLinesDemo } from "@/components/BackgroundLines";
 import { AnimatedModalDemo } from "@/components/AnimatedModalDemo";
+import { GlobeDemo } from "@/components/GlobeDemo";
 
 const DonateUs = () => {
   return (
     <>
       <NavbarMenu />
-      <BackgroundLinesDemo />
-      <AnimatedModalDemo />
+      <GlobeDemo />
+      <div className="relative mt-[-350px] z-20">
+        <AnimatedModalDemo />
+      </div>
     </>
   );
 };

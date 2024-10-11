@@ -8,7 +8,9 @@ const ContactUs = () => {
     <>
       <NavbarMenu />
       <BackgroundBeamsDemo />
-      <AnimatedModalDemo />
+      <div className="relative mt-[-350px] z-20">
+        <AnimatedModalDemo />
+      </div>
     </>
   );
 };
