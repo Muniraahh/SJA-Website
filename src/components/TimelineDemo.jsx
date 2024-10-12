@@ -1,6 +1,6 @@
-//import Image from "next/image";
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
+import history from "@/assets/history.jpeg"
 
 export function TimelineDemo() {
   const data = [
@@ -20,7 +20,7 @@ export function TimelineDemo() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
+              src= {history}
               alt="startup template"
               width={500}
               height={500}

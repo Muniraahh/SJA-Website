@@ -8,7 +8,7 @@ const ContactUs = () => {
     <>
       <NavbarMenu />
       <BackgroundBeamsDemo />
-      <div className="relative mt-[-350px] z-20">
+      <div className="relative mt-[-250px] z-20">
         <AnimatedModalDemo />
       </div>
     </>

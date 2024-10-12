@@ -8,9 +8,7 @@ const DonateUs = () => {
     <>
       <NavbarMenu />
       <GlobeDemo />
-      <div className="relative mt-[-350px] z-20">
-        <AnimatedModalDemo />
-      </div>
+      <AnimatedModalDemo />
     </>
   );
 };

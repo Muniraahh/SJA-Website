@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-//import Image from "next/image";
+import test from "@/assets/test.png";
 
 export function HeroScrollDemo() {
   return (
-    (<div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden">
       <ContainerScroll
         titleComponent={
           <>
@@ -16,15 +16,18 @@ export function HeroScrollDemo() {
               </span>
             </h1>
           </>
-        }>
-        <img
-          src={`/linear.webp`}
-          alt="hero"
-          height={720}
-          width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
-          draggable={false} />
+        }
+      >
+        {/* Responsive Image Container */}
+        <div className="relative mx-auto max-w-[700px] w-full">
+          <img
+            src={test}
+            alt="hero"
+            className="w-full h-auto max-h-[1400px] object-contain rounded-2xl"
+            draggable={false}
+          />
+        </div>
       </ContainerScroll>
-    </div>)
+    </div>
   );
 }

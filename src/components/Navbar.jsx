@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation to track the current path
+import { Link, useLocation } from "react-router-dom";
 import { Menu, MenuItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
+import { Button } from "../components/ui/button";
 
 export default function NavbarMenu() {
   return (
@@ -13,42 +14,28 @@ export default function NavbarMenu() {
 }
 
 function Navbar({ className }) {
-  const location = useLocation(); // Get the current location (path)
+  const location = useLocation();
 
   return (
     <div
       className={cn(
-        "fixed top-10 inset-x-0 max-w-md mx-auto z-40",
+        "fixed top-10 inset-x-0 max-w-xl mx-auto z-40 flex items-center justify-between gap-4", // Align items horizontally
         className
       )}
     >
-      <Menu>
-        <MenuItem
-          currentPath={location.pathname} // Pass the current path to the menu item
-          item="Home"
-          href="/"
-        />
-        <MenuItem
-          currentPath={location.pathname}
-          item="About Us"
-          href="/about"
-        />
-        <MenuItem
-          currentPath={location.pathname}
-          item="Gallery"
-          href="/gallery"
-        />
-        <MenuItem
-          currentPath={location.pathname}
-          item="Donate Us"
-          href="/donate"
-        />
-        <MenuItem
-          currentPath={location.pathname}
-          item="Contact Us"
-          href="/contact"
-        />
+      {/* Navbar Menu Items */}
+      <Menu className="flex  items-center gap-4">
+        <MenuItem currentPath={location.pathname} item="Home" href="/" />
+        <MenuItem currentPath={location.pathname} item="About Us" href="/about" />
+        <MenuItem currentPath={location.pathname} item="Gallery" href="/gallery" />
+        <MenuItem currentPath={location.pathname} item="Donate Us" href="/donate" />
+        <MenuItem currentPath={location.pathname} item="Contact Us" href="/contact" />
       </Menu>
+
+      {/* Sign In Button */}
+      <Link to='/signIn'>
+      <Button className="rounded-full">Sign In</Button>
+      </Link>
     </div>
   );
 }
