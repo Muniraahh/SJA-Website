@@ -217,8 +217,8 @@ export const Card = ({ card, index, layout = false }) => {
         onClick={handleOpen}
         className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-64 w-40 md:h-[24rem] md:w-72 overflow-hidden flex flex-col items-start justify-start relative z-10"
       >
-        <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-4 md:p-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+        <div className="relative z-40 p-4 md:p-8 flex flex-col h-full w-full">
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
             className="text-white text-sm md:text-base font-medium font-sans text-left"
@@ -227,42 +227,34 @@ export const Card = ({ card, index, layout = false }) => {
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-xl md:text-2xl font-semibold max-w-xs text-left font-sans mt-2"
+            className="text-white text-xl md:text-2xl font-semibold text-left font-sans mt-2 flex-grow"
           >
             {card.title}
           </motion.p>
         </div>
-        <BlurImage
-          src={card.src}
-          alt={card.title}
-          fill
-          className="object-cover absolute z-10 inset-0"
-        />
+        <div className="absolute inset-0 z-10">
+          <BlurImage
+            src={card.src}
+            alt={card.title}
+            className="object-cover w-full h-full"
+          />
+        </div>
       </motion.button>
     </>
   );
 };
 
-export const BlurImage = ({
-  height,
-  width,
-  src,
-  className,
-  alt,
-  ...rest
-}) => {
+export const BlurImage = ({ src, className, alt, ...rest }) => {
   const [isLoading, setLoading] = useState(true);
   return (
     <img
       className={cn(
-        "transition duration-300",
+        "transition duration-300 w-full h-full",
         isLoading ? "blur-sm" : "blur-0",
         className
       )}
       onLoad={() => setLoading(false)}
       src={src}
-      width={width}
-      height={height}
       loading="lazy"
       decoding="async"
       alt={alt ? alt : "Background of a beautiful view"}

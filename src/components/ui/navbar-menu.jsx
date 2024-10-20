@@ -29,7 +29,7 @@ export const Menu = ({ children }) => {
     <nav
       className="relative rounded-full border-2 border-gray-300 dark:border-white/[0.2] 
                   bg-white dark:bg-black shadow-input flex justify-center 
-                  space-x-6 px-6 py-2 transition-all duration-300 
+                  space-x-4 px-6 py-2 transition-all duration-300 
                   hover:border-indigo-500 hover:shadow-[0_0_15px_5px_rgba(99,102,241,0.6)]"
     >
       {children}

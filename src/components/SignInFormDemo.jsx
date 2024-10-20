@@ -3,17 +3,22 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export function SignInFormDemo() {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    // Here you would typically validate the credentials
+    // For now, we'll just navigate to the admin page regardless
+    navigate("/admin/addimages");
   };
 
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome Back to Aceternity
+        Welcome Back to SJA Admin Panel 
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Please sign in to continue
@@ -59,5 +64,3 @@ const LabelInputContainer = ({ children, className }) => {
     </div>
   );
 };
-
-

@@ -11,17 +11,19 @@ export function AppleCardsCarouselDemo() {
   ));
 
   return (
-    (<div className="w-full h-full py-20">
-      <h2
-        className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-        Get to know about us.
-      </h2>
-      <h5
-        className="text-4xl font-normal text-black dark:text-white ml-4">
-        Insights from Our Leadership Team
-      </h5>
-      <Carousel items={cards} />
-    </div>)
+    <div className="w-full py-20 bg-white dark:bg-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+            Get to know about us.
+          </h2>
+          <h5 className="text-xl md:text-2xl font-normal text-neutral-600 dark:text-neutral-400">
+            Insights from Our Leadership Team
+          </h5>
+        </div>
+        <Carousel items={cards} />
+      </div>
+    </div>
   );
 }
 
@@ -84,6 +86,18 @@ const data = [
     category: "iOS",
     title: "Photography just got better.",
     src: "https://images.unsplash.com/photo-1602081957921-9137a5d6eaee?q=80&w=2793&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    content: <DummyContent />,
+  },
+  {
+    category: "Hiring",
+    title: "Hiring for a Staff Software Engineer",
+    src: "https://images.unsplash.com/photo-1511984804822-e16ba72f5848?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    content: <DummyContent />,
+  },
+  {
+    category: "Hiring",
+    title: "Hiring for a Staff Software Engineer",
+    src: "https://images.unsplash.com/photo-1511984804822-e16ba72f5848?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     content: <DummyContent />,
   },
   {

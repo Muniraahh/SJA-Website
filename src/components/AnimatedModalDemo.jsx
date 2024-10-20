@@ -14,7 +14,8 @@ import { motion } from "framer-motion";
 export function AnimatedModalDemo() {
   const [cashfree, setCashfree] = useState(null);
   const [orderId, setOrderId] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal state
+  const [userId, setUserId] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -22,11 +23,10 @@ export function AnimatedModalDemo() {
     amount: "",
   });
 
-  // Initialize Cashfree SDK
   useEffect(() => {
     const initializeSDK = async () => {
       try {
-        const sdk = await load({ mode: "sandbox" }); // Switch to 'production' for live mode
+        const sdk = await load({ mode: "sandbox" });
         setCashfree(sdk);
       } catch (error) {
         console.error("Failed to load Cashfree SDK", error);
@@ -35,25 +35,56 @@ export function AnimatedModalDemo() {
     initializeSDK();
   }, []);
 
-  // Get Session ID from backend
-  const getSessionId = async () => {
+  const handlePayment = async (e) => {
+    e.preventDefault();
+  
+    if (formData.amount <= 0) {
+      alert("Donation amount must be greater than 0");
+      return;
+    }
+  
     try {
-      const res = await axios.post("http://localhost:8000/payment", formData); // Use POST to send form data
-      if (res.data && res.data.payment_session_id) {
-        setOrderId(res.data.order_id);
-        return res.data.payment_session_id;
+      // Save user data and create payment session
+      const saveResponse = await axios.post("http://localhost:8000/api/save", formData);
+      if (saveResponse.status !== 201) {
+        alert("Failed to save user data");
+        return;
+      }
+      
+      const { user, paymentSession } = saveResponse.data;
+      setUserId(user._id);
+      setOrderId(user.orderId);
+
+      if (cashfree && paymentSession.payment_session_id) {
+        const checkoutOptions = {
+          paymentSessionId: paymentSession.payment_session_id,
+          redirectTarget: "_modal",
+        };
+  
+        // Initialize Cashfree checkout
+        cashfree.checkout(checkoutOptions).then(() => {
+          console.log("Payment initialized");
+          verifyPayment(user.orderId);
+        }).catch(error => {
+          console.error("Payment initialization failed", error);
+        });
       }
     } catch (error) {
-      console.error("Error fetching session ID:", error);
+      console.error("Error during payment process:", error);
     }
   };
 
-  // Verify Payment
-  const verifyPayment = async () => {
+  const verifyPayment = async (orderId) => {
     try {
-      const res = await axios.post("http://localhost:8000/verify", { orderId });
+      const res = await axios.post("http://localhost:8000/api/verify-payment", { orderId });
       if (res && res.data) {
-        alert("Payment verified successfully!");
+        if (res.data.status === 'SUCCESS') {
+          alert("Payment successful!");
+        } else if (res.data.status === 'PENDING') {
+          alert("Payment is still pending. Please check again later.");
+        } else {
+          alert("Payment failed. Please try again.");
+        }
       } else {
         alert("Payment verification failed!");
       }
@@ -62,47 +93,14 @@ export function AnimatedModalDemo() {
     }
   };
 
-  // Handle Payment Process
-  const handlePayment = async (e) => {
-    e.preventDefault();
-
-    // Validate form data
-    if (formData.amount <= 0) {
-      alert("Donation amount must be greater than 0");
-      return;
-    }
-
-    try {
-      const sessionId = await getSessionId(); // Fetch session ID from backend
-      if (cashfree && sessionId) {
-        const checkoutOptions = {
-          paymentSessionId: sessionId,
-          redirectTarget: "_modal",
-        };
-
-        // Initialize Cashfree checkout
-        cashfree.checkout(checkoutOptions).then(() => {
-          console.log("Payment initialized");
-          // Move verification logic here if needed after payment completion
-        }).catch(error => {
-          console.error("Payment initialization failed", error);
-        });
-      }
-    } catch (error) {
-      console.error("Payment initialization failed:", error);
-    }
-  };
-
-  // Handle form input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle Cancel Button
   const handleCancel = () => {
-    setFormData({ name: "", phone: "", email: "", amount: "" }); // Reset form
-    setIsModalOpen(false); // Close modal
+    setFormData({ name: "", phone: "", email: "", amount: "" });
+    setIsModalOpen(false);
   };
 
   return (
@@ -110,7 +108,7 @@ export function AnimatedModalDemo() {
       <Modal open={isModalOpen} onOpenChange={setIsModalOpen}>
         <ModalTrigger
           className="bg-black dark:bg-white dark:text-black text-white flex justify-center group/modal-btn fixed bottom-4 right-4 z-50"
-          onClick={() => setIsModalOpen(true)} // Open modal
+          onClick={() => setIsModalOpen(true)}
         >
           <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
             Donate Now

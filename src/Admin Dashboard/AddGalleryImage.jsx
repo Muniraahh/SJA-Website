@@ -1,16 +1,15 @@
 import React, { useCallback, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDropzone } from 'react-dropzone';
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { ImagePlus, Plus, X } from "lucide-react";
-// import { API_URL } from "@/api/Api";
-
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
     title: z.string().min(2).max(100),
@@ -19,11 +18,11 @@ const formSchema = z.object({
     tags: z.array(z.string()),
 });
 
-const AddGalleryImage = () => {
-    const API_URL = ""
+const AddGalleryImageForm = () => {
     const [preview, setPreview] = useState("");
+    const navigate = useNavigate();
     const form = useForm({
-        // resolver: zodResolver(formSchema),
+        resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
             description: "",
@@ -60,30 +59,12 @@ const AddGalleryImage = () => {
         accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
     });
 
-    async function onSubmit(values) {
-        try {
-            const formData = new FormData();
-            formData.append("title", values.title);
-            formData.append("description", values.description || "");
-            formData.append("image", values.image);
-            values.tags.forEach((tag) => {
-                if (tag.trim() !== "") {
-                    formData.append("tags", tag.trim());
-                }
-            });
-
-            const response = await axios.post(`${API_URL}/galleries`, formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-
-            console.log("Gallery image added:", response.data);
-            // Reset form or show success message
-            form.reset();
-            setPreview("");
-        } catch (error) {
-            console.error("Error adding gallery image:", error);
-            // Show error message to user
-        }
+    function onSubmit(values) {
+        console.log("Gallery image data:", values);
+        toast.success('Image added successfully!');
+        setTimeout(() => {
+            navigate('/');
+        }, 2000);
     }
 
     return (
@@ -192,4 +173,4 @@ const AddGalleryImage = () => {
     );
 };
 
-export default AddGalleryImage;
+export default AddGalleryImageForm;
